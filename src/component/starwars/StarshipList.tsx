@@ -6,10 +6,7 @@ import { Table } from "react-bootstrap";
 import starShipStyles from "./StarShipList.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../store/store";
-import {
-  addStarWars,
-  getPaginatedItems,
-} from "../../store/slice/starwars/slice";
+import { addStarWars } from "../../store/slice/starwars/slice";
 import { addPageNumber } from "../../store/slice/page/slice";
 
 export type Results = {
@@ -34,12 +31,14 @@ export interface IResult {
   results: [Results];
 }
 const StarwarsList = () => {
+  debugger;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pageNumber, setPageNumber] = useState<number>(1);
-  debugger;
   const { results, count, next, previous } = useSelector(
     (state: RootState) => state.starwars
   );
+  let arr = [...results];
+  console.log(results);
   const pageNumberList = useSelector(
     (state: RootState) => state.pageNumbers.pageNumber
   );
@@ -58,8 +57,6 @@ const StarwarsList = () => {
       };
       GetStarShipList();
     }
-    
-
   }, [dispatch, pageNumber, pageNumberList]);
 
   const getRandomNumber = () => Math.random();
@@ -80,9 +77,8 @@ const StarwarsList = () => {
 
   const handlePagedData = (): number => {
     if (pageNumber === 1) {
-      return 0;
-    } else {
       return -10;
+    } else {
     }
     return 0;
   };
@@ -101,22 +97,28 @@ const StarwarsList = () => {
             </tr>
           </thead>
           <tbody>
-            {results?.slice(-10).map((item: any, index: number) => {
-              return (
-                <tr key={index + getRandomNumber()}>
-                  <td>{index + 1}</td>
-                  <td>
-                    <label
-                      className='link-primary'
-                      onClick={() => onNameClick(item)}>
-                      {item.name}
-                    </label>
-                  </td>
-                  <td>{item.birth_year}</td>
-                  <td>{item.gender}</td>
-                </tr>
-              );
-            })}
+            {arr?.length > 2 &&
+              arr
+                ?.splice(
+                  pageNumber > 1 ? pageNumber * 10 - 10 + 1 : 1,
+                  pageNumber > 1 ? pageNumber * 10 - 10 : 10
+                )
+                .map((item: any, index: number) => {
+                  return (
+                    <tr key={index + getRandomNumber()}>
+                      <td>{index + 1}</td>
+                      <td>
+                        <label
+                          className='link-primary'
+                          onClick={() => onNameClick(item)}>
+                          {item.name}
+                        </label>
+                      </td>
+                      <td>{item.birth_year}</td>
+                      <td>{item.gender}</td>
+                    </tr>
+                  );
+                })}
           </tbody>
         </Table>
       )}
