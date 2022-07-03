@@ -74,63 +74,65 @@ const StarwarsList = () => {
 
   return (
     <>
-      {isLoading && <p>Fetching Data... Please Wait</p>}
-      {!isLoading && (
-        <Table striped bordered hover size='sm'>
-          <thead>
-            <tr>
-              <th>S/N</th>
-              <th>Name</th>
-              <th>Birth Year</th>
-              <th>Gender</th>
-            </tr>
-          </thead>
-          <tbody>
-            {arr?.length > 2 &&
-              arr
-                ?.splice(
-                  pageNumber > 1 ? pageNumber * 10 - 10 + 1 : 1,
-                  pageNumber > 1 ? pageNumber * 10 - 10 : 10
-                )
-                .map((item: any, index: number) => {
-                  return (
-                    <tr key={index + getRandomNumber()}>
-                      <td>{index + 1}</td>
-                      <td>
-                        <label
-                          className='link-primary'
-                          onClick={() => onNameClick(item)}>
-                          {item.name}
-                        </label>
-                      </td>
-                      <td>{item.birth_year}</td>
-                      <td>{item.gender}</td>
-                    </tr>
-                  );
-                })}
-          </tbody>
-        </Table>
-      )}
-      {!isLoading && (
-        <p className={starShipStyles.pageNumber}>
-          Page {pageNumber} of {Math.floor(count / 10)}
-        </p>
-      )}
-      {!isLoading && (
-        <section
-          className={`row justify-content-center ${starShipStyles.pagination}`}>
-          <button onClick={onPrevious} disabled={pageNumber === 1}>
-            Prev
-          </button>
-          |
-          <button
-            className='btn btn-primary'
-            disabled={pageNumber === Math.floor(count / 10)}
-            onClick={onNext}>
-            Next
-          </button>
-        </section>
-      )}
+      <section className={starShipStyles.body}>
+        {isLoading && <p>Fetching Data... Please Wait</p>}
+        {!isLoading && (
+          <Table striped bordered hover size='sm'>
+            <thead>
+              <tr>
+                <th>S/N</th>
+                <th>Name</th>
+                <th>Birth Year</th>
+                <th>Gender</th>
+              </tr>
+            </thead>
+            <tbody>
+              {arr?.length > 2 &&
+                arr
+                  ?.splice(
+                    pageNumber > 1 ? (pageNumber-1) * 10  + 1 : 1,
+                   10
+                  )
+                  .map((item: any, index: number) => {
+                    return (
+                      <tr key={index + getRandomNumber()}>
+                        <td>{pageNumber * 10 - 10+index+1}</td>
+                        <td>
+                          <label
+                            className='link-primary'
+                            onClick={() => onNameClick(item)}>
+                            {item.name}
+                          </label>
+                        </td>
+                        <td>{item.birth_year}</td>
+                        <td>{item.gender}</td>
+                      </tr>
+                    );
+                  })}
+            </tbody>
+          </Table>
+        )}
+        {!isLoading && (
+          <p className={starShipStyles.pageNumber}>
+            Page {pageNumber} of {Math.floor(count / 10)}
+          </p>
+        )}
+        {!isLoading && (
+          <section
+            className={`row justify-content-center ${starShipStyles.pagination}`}>
+            <button onClick={onPrevious} disabled={pageNumber === 1}>
+              Prev
+            </button>
+            |
+            <button
+              className='btn btn-primary'
+              disabled={pageNumber === Math.floor(count / 10)}
+              onClick={onNext}>
+              Next
+            </button>
+          </section>
+        )}
+      </section>
     </>
   );
 };
