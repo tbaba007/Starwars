@@ -106,10 +106,6 @@ const StarwarsList = () => {
                         </td>
                         <td>{item.birth_year}</td>
                         <td>{item.gender}</td>
-                        <button
-                          className={`btn btn-primary ${starShipStyles.btnEdit}`}>
-                          Edit
-                        </button>
                       </tr>
                     );
                   })}
