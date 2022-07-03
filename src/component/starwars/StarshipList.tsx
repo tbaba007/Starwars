@@ -96,7 +96,7 @@ const StarwarsList = () => {
                   .map((item: any, index: number) => {
                     return (
                       <tr key={index + getRandomNumber()}>
-                        <td>{pageNumber * 10 - 10+index+1}</td>
+                        <td>{pageNumber * 10 - 10 + index + 1}</td>
                         <td>
                           <label
                             className='link-primary'
@@ -106,6 +106,10 @@ const StarwarsList = () => {
                         </td>
                         <td>{item.birth_year}</td>
                         <td>{item.gender}</td>
+                        <button
+                          className={`btn btn-primary ${starShipStyles.btnEdit}`}>
+                          Edit
+                        </button>
                       </tr>
                     );
                   })}

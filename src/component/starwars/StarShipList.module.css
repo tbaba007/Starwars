@@ -21,3 +21,10 @@
 .body {
     margin-top: 150px;
 }
+.btnEdit {
+    width: 100px;
+    background-color: #5cb85c !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    outline: transparent !important;
+}

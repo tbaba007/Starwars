@@ -1,6 +1,5 @@
 import { createSlice,PayloadAction } from '@reduxjs/toolkit';
-import { IResult,Results as Starship } from '../../../component/starwars/StarshipList';
-import {itemPerPage} from '../../../constants/config'
+import { IResult } from '../../../component/starwars/StarshipList';
 const initialState: IResult={
     count: 0,
     next: "",
