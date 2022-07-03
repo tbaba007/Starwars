@@ -31,19 +31,16 @@ export interface IResult {
   results: [Results];
 }
 const StarwarsList = () => {
-  debugger;
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const { results, count, next, previous } = useSelector(
-    (state: RootState) => state.starwars
-  );
+  const { results, count } = useSelector((state: RootState) => state.starwars);
   let arr = [...results];
-  console.log(results);
   const pageNumberList = useSelector(
     (state: RootState) => state.pageNumbers.pageNumber
   );
   const dispatch = useDispatch();
   const history = useHistory();
+
   useMemo(() => {
     document.title = "StarShip";
     if (!pageNumberList.includes(pageNumber)) {
@@ -75,14 +72,6 @@ const StarwarsList = () => {
     }
   };
 
-  const handlePagedData = (): number => {
-    if (pageNumber === 1) {
-      return -10;
-    } else {
-    }
-    return 0;
-  };
- 
   return (
     <>
       {isLoading && <p>Fetching Data... Please Wait</p>}
@@ -132,7 +121,7 @@ const StarwarsList = () => {
           className={`row justify-content-center ${starShipStyles.pagination}`}>
           <button onClick={onPrevious} disabled={pageNumber === 1}>
             Prev
-          </button>{" "}
+          </button>
           |
           <button
             className='btn btn-primary'
